@@ -8,6 +8,7 @@ class User(AbstractUser):
     is_teacher = models.BooleanField(default=False)
 
 
+
 class Subject(models.Model):
     name = models.CharField(max_length=30)
     color = models.CharField(max_length=7, default='#007bff')

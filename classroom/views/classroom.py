@@ -3,8 +3,10 @@ from django.views.generic import TemplateView
 from django.db.models import Count
 from classroom.models import Quiz
 
+
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
+
 
 def home(request):
     if request.user.is_authenticated:
@@ -14,10 +16,11 @@ def home(request):
             return redirect('students:quiz_list')
         else:
             return redirect('admin:index')
+    return render(request, 'classroom/home.html')
+    # return render(request,'classroom/quiz_list.html',{
+    #     'quizzes':Quiz.objects.annotate(questions_count=Count('questions')) \
+    #         .filter(questions_count__gt=0)})
 
-    return render(request,'classroom/quiz_list.html',{
-        'quizzes':Quiz.objects.annotate(questions_count=Count('questions')) \
-            .filter(questions_count__gt=0)})
 
 class AboutView(TemplateView):
     template_name = 'classroom/about.html'
